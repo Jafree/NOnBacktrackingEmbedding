@@ -1,5 +1,5 @@
-inputfile = "datasets/Dpolblogscontinuous.txt"
+inputfile = "datasets/ECA-HepTh.txt"
 outfile = "karateOutput.community"
-embeded = ("datasets/polblogs_nb.txt","datasets/blog_nbua.txt")
+embeded = ("datasets/CAHepTh_result.txt","blog_nbua.txt")
 #,"datasets/deepwalkkarateem_sorted.txt","datasets/line_vec_sorted.txt")
 
