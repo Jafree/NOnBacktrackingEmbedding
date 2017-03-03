@@ -60,14 +60,9 @@ clear all
 load datasets/DBLP.txt
 DBLP = unique(sort(DBLP,2),'rows');
 G = graph(DBLP(:,1),DBLP(:,2));
-[U,V] =graph_embedding(G,'ua',100,'normalized');
-save -ascii dblp_ua.txt U
-[U,V] =graph_embedding(G,'ua',100,'unnormalized');
-save -ascii dblp_ua_un.txt U
-[U,V] =graph_embedding(G,'wa',100,'normalized');
-save -ascii dblp_wa.txt U
-[U,V] =graph_embedding(G,'wa',100,'unnormalized');
-save -ascii dblp_wa_un.txt U
+NB_G = graph2nb_line_graph(G,1);
+[U,D] = eigs_nodes(NB_G,101,'normalized');
+save -ascii DBLP_result.txt U
 
 clear all
 load datasets/amazon.txt
