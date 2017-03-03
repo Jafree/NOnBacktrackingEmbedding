@@ -1,6 +1,6 @@
 function [U,D] = graph_embedding(G,Version,K,mode)
 %Parameter:
-% G is a graph class in matlab 2016b
+% G is a graph in matlab 2016b
 % Version = "wa" or "ua" or "nb"
 % K is number of d
 %
@@ -11,7 +11,7 @@ if nargin < 4
         K = 10;
     end
 end
-N = numnodes(G);
+N = numnodes(G)
 
 if strcmp(Version, 'nb')
     LG = graph_to_d_atleast2(G);
@@ -25,13 +25,13 @@ else
     %Degree matrix D
     De = spdiags(degree(G),0,N,N);
     %Inverse of Degree matrix D^-1
-    D_inv = spdiags(1./degree(G),0,N,N);
+    D_inv = inv(spdiags(degree(G),0,N,N));
     %Inverse of Degree minus one matrix (D-I)^-1
-    D_I_inv =  spdiags(1./(degree(G)-ones(N,1)),0,N,N);
+    D_I = spdiags(degree(G),0,N,N)-I;    
 
     if strcmp(Version,'ua')
     %Transformed Approximation matrix using uniform assuming approximationv
-        M_D = 0.5*A*D_I_inv*(I-D_inv);
+        M_D = 0.5*A/D_I*(I-D_inv);
         D_D = 0.5*I;
         T_ua = spalloc(2*N,2*N,2*(nnz(M_D)+nnz(D_D)));
         
@@ -44,25 +44,25 @@ else
         if strcmp(mode,'normalized')
         %Degree normalize
             
-            U = D_inv*U(1:N,2:K+1);
+            U = De\U(1:N,2:K+1);
         
         end
         
     elseif strcmp(Version,'wa')
     %Transformed Approximation matrix using weight average T_wa
-        M_D = 0.5*A*D_I_inv;
-        D_D = 0.5*(I-D_inv*A*D_I_inv);
+        M_D = 0.5*A/D_I;
+        D_D = 0.5*(I-De\A/D_I);
         T_wa = spalloc(2*N,2*N,2*(nnz(M_D)+nnz(D_D)));
         
         T_wa(1:N,1:N) = M_D;
         T_wa(N+1:2*N,N+1:2*N) = M_D;
         T_wa(N+1:2*N,1:N) = D_D;
         T_wa(1:N,N+1:2*N) = D_D;
-        [U,D] = eigs(T_wa,K,'LR');
+        [U,D] = eigs(T_wa,K,'LM');
         D
         if strcmp(mode,'normalized')
         %Degree normalize
-            U = D_inv*U(1:N,2:K+1);
+            U = De\U(1:N,2:K+1);
         end
     
     end   

@@ -2,9 +2,8 @@ function [ U,D ] = eigs_nodes(P,K,mode)
 %
 %V is    
 %[V,D] = eigs(P.matrix,K,'LM');%V is the 2m by k matrix with each column beiing a eigenvector
-[V,D] = eigs(P.matrix,K,'LM');
-%[V,D] = eigenshuffle(P.matrix);
-D = diag(D);
+[V,D] = eigs(P.matrix,K,'LR');
+D = spdiags(D,0,K,K);
 U = [];
 if strcmp(mode, 'normalized')%1 for degree normalized version
 for i = 1:P.original_nodenumber
