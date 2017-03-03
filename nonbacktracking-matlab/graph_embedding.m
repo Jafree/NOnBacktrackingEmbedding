@@ -17,7 +17,8 @@ if strcmp(Version, 'nb')
     LG = graph_to_d_atleast2(G);
     LLG = graph2nb_line_graph(LG,1);
     [U,D] = eigs_nodes(LLG,K+1,mode);
-    U = U(2:K+1,1:N);
+    [D,idx] = sort(diag(D),'descend');
+    U = U(1:N, idx(2:K+1));
 else
     I = speye(N);
     %Adjacency matrix A
@@ -40,12 +41,12 @@ else
         T_ua(N+1:2*N,1:N) = D_D;
         T_ua(1:N,N+1:2*N) = D_D;
         [U,D] = eigs(T_ua,K+1,'LR');
+        [D,idx] = sort(diag(D),'descend');
+        U = U(1:N, idx(2:K+1));
         D
         if strcmp(mode,'normalized')
         %Degree normalize
-            
-            U = D_inv*U(1:N,2:K+1);
-        
+            U = D_inv*U;
         end
         
     elseif strcmp(Version,'wa')
@@ -53,16 +54,20 @@ else
         M_D = 0.5*A*D_I_inv;
         D_D = 0.5*(I-D_inv*A*D_I_inv);
         T_wa = spalloc(2*N,2*N,2*(nnz(M_D)+nnz(D_D)));
-        
+        %Form 2N by 2N matrix
         T_wa(1:N,1:N) = M_D;
         T_wa(N+1:2*N,N+1:2*N) = M_D;
         T_wa(N+1:2*N,1:N) = D_D;
         T_wa(1:N,N+1:2*N) = D_D;
-        [U,D] = eigs(T_wa,K,'LR');
+        %eigen decomposition
+        [U,D] = eigs(T_wa,K+1,'LR');
+        %sort eigenvalue in descendinging order
+        [D,idx] = sort(diag(D),'descend');
+        U = U(1:N, idx(2:K+1));
         D
         if strcmp(mode,'normalized')
         %Degree normalize
-            U = D_inv*U(1:N,2:K+1);
+            U = D_inv*U;
         end
     
     end   

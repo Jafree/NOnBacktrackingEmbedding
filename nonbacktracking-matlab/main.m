@@ -15,12 +15,29 @@ NB_G = graph2nb_line_graph(G,1);
 save -ascii polblogs_result.txt U
 
 clear all
+load datasets/polblogs.txt
+polblogs = unique(sort(polblogs,2),'rows');
+G = graph(polblogs(:,1),polblogs(:,2));
+[U,V] =graph_embedding(G,'ua',100,'normalized');
+save -ascii polblogs_ua.txt U
+[U,V] =graph_embedding(G,'ua',100,'unnormalized');
+save -ascii polblogs_ua_un.txt U
+[U,V] =graph_embedding(G,'wa',100,'normalized');
+save -ascii polblogs_wa.txt U
+[U,V] =graph_embedding(G,'wa',100,'unnormalized');
+save -ascii polblogs_wa_un.txt U
+
+
+clear all
 load datasets/CACondMat.txt
 CACondMat = unique(sort(CACondMat,2),'rows');
 G = graph(CACondMat(:,1),CACondMat(:,2));
 NB_G = graph2nb_line_graph(G,1);
 [U,D] = eigs_nodes(NB_G,101,'normalized');
 save -ascii CACondMat_result.txt U
+
+
+
 
 clear all
 load datasets/CAHepTh.txt

@@ -35,10 +35,10 @@ if __name__ == '__main__':
         print embeded_each_file        
         for max_column in [3,5,10,20,30,100]:
             print "Analyizing dimension", max_column
-            embeded_data = embeded_all_dimensions[:,1:max_column]
+            embeded_data = embeded_all_dimensions[:,2:max_column]
             
             # Run kmeans
-            kmeans = KMeans(n_clusters=995).fit(embeded_data)
+            kmeans = KMeans(n_clusters=100).fit(embeded_data)
             print kmeans.labels_
             print compute_modu_perm(graph_structure,kmeans.labels_)
 
@@ -48,11 +48,11 @@ if __name__ == '__main__':
             print compute_modu_perm(graph_structure,dbscan.labels_)
 
             #Run Agglomerative Clustering
-            agglomerative = AgglomerativeClustering(n_clusters=995).fit(embeded_data)
+            agglomerative = AgglomerativeClustering(n_clusters=100).fit(embeded_data)
             print agglomerative.labels_
             print compute_modu_perm(graph_structure,agglomerative.labels_)
 
             #Run Spectral Clustering
-            spectralclu= SpectralClustering(n_clusters=995).fit(embeded_data)
-            print spectralclu.labels_
-            print compute_modu_perm(graph_structure,spectralclu.labels_)
+            #spectralclu= SpectralClustering(n_clusters=7).fit(embeded_data)
+            #print spectralclu.labels_
+            #print compute_modu_perm(graph_structure,spectralclu.labels_)
