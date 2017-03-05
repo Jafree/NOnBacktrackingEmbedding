@@ -59,7 +59,7 @@ def permanence_node(g,community_map_to_node,node_map_to_community,node_v):
             if len(neighbor_set) <= 2:
                 "The nodes in community is less than 2, clustering is 0"
                 "Debug: TODO:"
-                clustering_coefficient = 1
+                clustering_coefficient = 1 
                 "clustering_coefficient = 0"
             else:
                 "Otherwise, do computation"
@@ -91,7 +91,7 @@ def permanence_node(g,community_map_to_node,node_map_to_community,node_v):
         "When the number of neighboring nodes is less than two, the clustering coefficient is zero"
         "TODO:debug"
         if len(inner_node_set) <= 2 and len(inner_node_set)>len(external_node_set):
-            clustering_coefficient = 1 
+            clustering_coefficient = 1  
         elif len(inner_node_set) <= 2:
             clustering_coefficient = 0
         else:
@@ -126,9 +126,20 @@ def permanence(g,community_map_to_node,node_map_to_community):
     The output is the permanence of the graph
     '''
     permanence_sum = 0
+    #print "perm_max_com_num", max([len(community_map_to_node[com]) for com in community_map_to_node])
+    print "len(node_map_to_community)", len(node_map_to_community)
+    #If a community configuration cannot divide network into balanced structure, return permanence 0
+    max_com_ratio = float(max([len(community_map_to_node[com]) for com in community_map_to_node]))/len(node_map_to_community)
+    
+    min_com_ratio = float(min([len(community_map_to_node[com]) for com in community_map_to_node]))/len(node_map_to_community)
+    print max_com_ratio
+    print min_com_ratio
+    if max_com_ratio >= 0.9:
+        return 0
     for node_v in g.graphlist.iterkeys():
         permanence_sum += permanence_node(g,community_map_to_node,node_map_to_community,node_v)
-    return permanence_sum / sum(len(node_map_to_community[neighboring_node]) for neighboring_node in g.graphlist.iterkeys())
+    # return (1-(max_com_ratio-min_com_ratio)) * perm
+    return (1-(max_com_ratio-min_com_ratio)) * permanence_sum / sum(len(node_map_to_community[neighboring_node]) for neighboring_node in g.graphlist.iterkeys())
     
     
     

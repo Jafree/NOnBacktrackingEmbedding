@@ -27,32 +27,43 @@ if __name__ == '__main__':
     filepath = parameters.inputfile
     #Initialize the graph structure from file
     graph_structure = graph.graph(filepath)
+    output_content = filepath+'\n'
     for embeded_each_file in parameters.embeded:
         #For each embeded results, we run several clustering algorithms for comparison
         #Load embeded data
-        print embeded_each_file
+        output_content = output_content + embeded_each_file + '\n'
         embeded_all_dimensions = np.loadtxt(embeded_each_file)
-        print embeded_each_file        
-        for max_column in [1,2,3,5,10,20,30,100]:
-            print "Analyizing dimension", max_column
+        for max_column in parameters.dimensions:
+            output_content = output_content + "Analyizing dimension:"+ str(max_column) + '\n'
+
             embeded_data = embeded_all_dimensions[:,0:max_column]
             
             # Run kmeans
-            kmeans = KMeans(n_clusters=3).fit(embeded_data)
+            kmeans = KMeans(n_clusters=parameters.cluster_number).fit(embeded_data)
             #print kmeans.labels_
-            print compute_modu_perm(graph_structure,kmeans.labels_)
+            k_result = compute_modu_perm(graph_structure,kmeans.labels_)
+            output_content = output_content+ "kmeans"+str(k_result)+ '\n'
+            print k_result
 
             #Run DBSCAN   Have to tune eps
             dbscan = DBSCAN(eps = 0.1).fit(embeded_data)
             #print dbscan.labels_
-            print compute_modu_perm(graph_structure,dbscan.labels_)
+            DB_result= compute_modu_perm(graph_structure,dbscan.labels_)
+            output_content = output_content+ 'dbscan:'+str(DB_result)+'\n'
+            print DB_result
 
             #Run Agglomerative Clustering
-            agglomerative = AgglomerativeClustering(n_clusters=3).fit(embeded_data)
+            agglomerative = AgglomerativeClustering(n_clusters=parameters.cluster_number).fit(embeded_data)
             #print agglomerative.labels_
-            print compute_modu_perm(graph_structure,agglomerative.labels_)
-
+            ag_result = compute_modu_perm(graph_structure,agglomerative.labels_)
+            output_content = output_content + 'agglomerative:' + str(ag_result) + '\n'
+            print ag_result
             #Run Spectral Clustering
-            spectralclu= SpectralClustering(n_clusters=7).fit(embeded_data)
+            spectralclu= SpectralClustering(n_clusters=parameters.cluster_number).fit(embeded_data)
             #print spectralclu.labels_
-            print compute_modu_perm(graph_structure,spectralclu.labels_)
+            sp_result = compute_modu_perm(graph_structure,spectralclu.labels_)
+            output_content = output_content + 'spectral:' +str(sp_result) + '\n'
+            print sp_result
+    f = open(parameters.outfile,'w')
+    f.write(output_content)
+    f.close()
