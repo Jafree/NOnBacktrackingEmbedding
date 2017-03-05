@@ -39,28 +39,51 @@ end
 for i = 1:N
     lazy_nb_line_graph.out_index(i) = [];
 end
-lazy_nb_line_graph.matrix = zeros(2*M);
+%lazy_nb_line_graph.matrix = zeros(2*M);
+%Three vectors used for constructing sparse line nonbactracking matrix;
+spsource = [];
+spdesti = [];
+
 if mode == 1%mode=1 is for transition matrix
+    spvalue = [];
     for sedge = lazy_nb_line_graph.pair_index
         lazy_nb_line_graph.out_index(sedge(1)) = [lazy_nb_line_graph.out_index(sedge(1)),[sedge(2);sedge(3)]];
         for dedge = lazy_nb_line_graph.pair_index
             if sedge(1) == dedge(2) && sedge(2) ~= dedge(1)
-                lazy_nb_line_graph.matrix(sedge(3),dedge(3)) = 1/(2*(degree(G,sedge(1))-1));
+                %lazy_nb_line_graph.matrix(sedge(3),dedge(3)) = 1/(2*(degree(G,sedge(1))-1));
+                spsource = [spsource sedge(3)];
+                spdesti = [spdesti dedge(3)];
+                spvalue = [spvalue 1/(2*(degree(G,sedge(1))-1))];
+                
             elseif sedge(2) == dedge(1) && sedge(1) ~= dedge(2)
-                lazy_nb_line_graph.matrix(sedge(3),dedge(3)) = 1/(2*(degree(G,sedge(2))-1));
+                %lazy_nb_line_graph.matrix(sedge(3),dedge(3)) = 1/(2*(degree(G,sedge(2))-1));
+                spsource = [spsource sedge(3)];
+                spdesti = [spdesti dedge(3)];
+                spvalue = [spvalue 1/(2*(degree(G,sedge(2))-1))];
+                
             end
          end
-     end
+    end
+
 elseif mode ==2%For non-backtracking operator
    for sedge = lazy_nb_line_graph.pair_index
     lazy_nb_line_graph.out_index(sedge(1)) = [lazy_nb_line_graph.out_index(sedge(1)),[sedge(2);sedge(3)]];
     for dedge = lazy_nb_line_graph.pair_index
         if sedge(1) == dedge(2) && sedge(2) ~= dedge(1)
-            lazy_nb_line_graph.matrix(sedge(3),dedge(3)) = 1/2;
+            %lazy_nb_line_graph.matrix(sedge(3),dedge(3)) = 1/2;
+            spsource = [spsource sedge(3)];
+            spdesti = [spdesti dedge(3)];
         else if sedge(2) == dedge(1) && sedge(1) ~= dedge(2)
-            lazy_nb_line_graph.matrix(sedge(3),dedge(3)) = 1/2;
+            %lazy_nb_line_graph.matrix(sedge(3),dedge(3)) = 1/2;
+            spsource = [spsource sedge(3)];
+            spdesti = [spdesti dedge(3)];
         end
     end
-   end
+    end
+    spvalue = 1/2.*ones(1, size(spsource,2));
+   
+    end
+
 end
+lazy_nb_line_graph.matrix = sparse(spsource,spdesti,spvalue,2*M,2*M);
 end

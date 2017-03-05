@@ -33,26 +33,26 @@ if __name__ == '__main__':
         print embeded_each_file
         embeded_all_dimensions = np.loadtxt(embeded_each_file)
         print embeded_each_file        
-        for max_column in [3,5,10,20,30,100]:
+        for max_column in [1,2,3,5,10,20,30,100]:
             print "Analyizing dimension", max_column
-            embeded_data = embeded_all_dimensions[:,2:max_column]
+            embeded_data = embeded_all_dimensions[:,0:max_column]
             
             # Run kmeans
-            kmeans = KMeans(n_clusters=100).fit(embeded_data)
-            print kmeans.labels_
+            kmeans = KMeans(n_clusters=3).fit(embeded_data)
+            #print kmeans.labels_
             print compute_modu_perm(graph_structure,kmeans.labels_)
 
             #Run DBSCAN   Have to tune eps
             dbscan = DBSCAN(eps = 0.1).fit(embeded_data)
-            print dbscan.labels_
+            #print dbscan.labels_
             print compute_modu_perm(graph_structure,dbscan.labels_)
 
             #Run Agglomerative Clustering
-            agglomerative = AgglomerativeClustering(n_clusters=100).fit(embeded_data)
-            print agglomerative.labels_
+            agglomerative = AgglomerativeClustering(n_clusters=3).fit(embeded_data)
+            #print agglomerative.labels_
             print compute_modu_perm(graph_structure,agglomerative.labels_)
 
             #Run Spectral Clustering
-            #spectralclu= SpectralClustering(n_clusters=7).fit(embeded_data)
+            spectralclu= SpectralClustering(n_clusters=7).fit(embeded_data)
             #print spectralclu.labels_
-            #print compute_modu_perm(graph_structure,spectralclu.labels_)
+            print compute_modu_perm(graph_structure,spectralclu.labels_)

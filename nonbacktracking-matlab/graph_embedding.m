@@ -24,7 +24,7 @@ else
     %Adjacency matrix A
     A = adjacency(G);
     %Degree matrix D
-    De = spdiags(degree(G),0,N,N);
+    
     %Inverse of Degree matrix D^-1
     D_inv = spdiags(1./degree(G),0,N,N);
     %Inverse of Degree minus one matrix (D-I)^-1
@@ -72,12 +72,6 @@ else
     
     end   
 end
-
-
-
-
-
-
 
 
 end
