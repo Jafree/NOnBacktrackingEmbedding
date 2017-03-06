@@ -1,14 +1,20 @@
 clear all
-load datasets/karateTest.txt
+load ../datasets/karateTest.txt
 karateTest = unique(sort(karateTest,2),'rows');
 G = graph(karateTest(:,1),karateTest(:,2));
-max(conncomp(G))
 [U,V] =graph_embedding(G,'nb',30,'normalized');
-save -ascii karate_sparse_nb.txt U
+save -ascii ../datasets/embedding_results/karate_sparse_nb.txt U
 [U,V] =graph_embedding(G,'ua',30,'normalized');
-save -ascii karate_sparse_ua.txt U
-[U,V] =graph_embedding(G,'wa',30,'normalized');
-save -ascii karate_sparse_wa.txt U
+save -ascii ../datasets/embedding_results/karate_sparse_ua.txt U
+
+clear all
+load ../datasets/slashdotstarting_from_1.txt
+slashdotstarting_from_1 = unique(sort(slashdotstarting_from_1,2),'rows');
+G = graph(slashdotstarting_from_1(:,1),slashdotstarting_from_1(:,2));
+[U,V] =graph_embedding(G,'nb',110,'normalized');
+save -ascii ../datasets/embedding_results/slashdots_sparse_nb.txt U
+[U,V] =graph_embedding(G,'ua',110,'normalized');
+save -ascii ../datasets/embedding_results/slashdots_sparse_ua.txt U
 
 
 clear all
@@ -17,7 +23,7 @@ polblogs = unique(sort(polblogs,2),'rows');
 G = graph(polblogs(:,1),polblogs(:,2));
 max(conncomp(G))
 [U,V] =graph_embedding(G,'nb',110,'normalized');
-save -ascii blog_sparse_nb.txt U
+save -ascii ../datasets/embedding_results/blog_sparse_nb.txt U
 
 
 
