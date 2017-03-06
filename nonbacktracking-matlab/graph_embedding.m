@@ -5,12 +5,16 @@ function [U,D] = graph_embedding(G,Version,K,mode)
 % K is number of d
 %
 %Default K=10
+
 if nargin < 4
     mode = 'normalized';
     if nargin < 3
         K = 10;
     end
 end
+
+fprintf('Processing graph_embedding %s\n',Version);
+
 N = numnodes(G);
 
 if strcmp(Version, 'nb')

@@ -13,6 +13,7 @@ function [ lazy_nb_line_graph ] = graph2lazy_nb_line_graph(G,mode)
 %
 %
 %Data, N, M
+fprintf('Processing graph2nb_line_graph\n');
 Data = adjacency(G);
 N = numnodes(G);
 M = numedges(G);
@@ -23,6 +24,7 @@ lazy_nb_line_graph.original_nodenumber = N;
 lazy_nb_line_graph.original_edgenumber = M;
 pcount = 0;
 %Initialize the incoming edge set w.r.t each node and directed edge set for indexing 
+fprintf('Generating edge pairs\n');
 for i = 1:N
     invec = [];
     for j = 1:N
@@ -43,6 +45,8 @@ end
 %Three vectors used for constructing sparse line nonbactracking matrix;
 spsource = [];
 spdesti = [];
+
+fprintf('Generating three lists to form sparse 2m*2m matrix\n');
 
 if mode == 1%mode=1 is for transition matrix
     spvalue = [];
@@ -85,5 +89,6 @@ elseif mode ==2%For non-backtracking operator
     end
 
 end
+fprintf('Generating sparse 2m*2m matrix\n');
 lazy_nb_line_graph.matrix = sparse(spsource,spdesti,spvalue,2*M,2*M);
 end

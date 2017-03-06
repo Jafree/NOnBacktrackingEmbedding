@@ -2,6 +2,8 @@ function [ U,D ] = eigs_nodes(P,K,mode)
 %
 %V is    
 %[V,D] = eigs(P.matrix,K,'LM');%V is the 2m by k matrix with each column beiing a eigenvector
+fprintf('Processing eigs_nodes %s \n',mode);
+
 P
 [V,D] = eigs(P.matrix,K,'LR');
 D = spdiags(D,0,K,K);
@@ -20,7 +22,7 @@ end
 elseif strcmp(mode, 'unnormalized')% 2 for unnormalized version
 for i = 1:P.original_nodenumber
     vec = zeros(1,K);
-    for list =P.in_index(i)
+    for list = P.in_index(i)
         vec = vec+V(list(2),:);
     end
     U = [U;vec];
