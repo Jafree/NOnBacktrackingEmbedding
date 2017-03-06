@@ -3,15 +3,13 @@ function [ U,D ] = eigs_nodes(P,K,mode)
 %V is    
 %[V,D] = eigs(P.matrix,K,'LM');%V is the 2m by k matrix with each column beiing a eigenvector
 fprintf('Processing eigs_nodes %s \n',mode);
-
-P
 [V,D] = eigs(P.matrix,K,'LR');
-D = spdiags(D,0,K,K);
+D
 U = [];
 if strcmp(mode, 'normalized')%1 for degree normalized version
 for i = 1:P.original_nodenumber
     %vec = zeros(1,size(D,'row'));
-    vec = zeros(1,size(D,1));
+    vec = zeros(1,K);
     count =0;
     for list =P.in_index(i)
         vec = vec+V(list(2),:);

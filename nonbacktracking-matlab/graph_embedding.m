@@ -20,6 +20,7 @@ N = numnodes(G);
 if strcmp(Version, 'nb')
     LG = graph_to_d_atleast2(G);
     LLG = graph2nb_line_graph(LG,1);
+    
     [U,D] = eigs_nodes(LLG,K+1,mode);
     [D,idx] = sort(diag(D),'descend');
     U = U(1:N, idx(2:K+1));
