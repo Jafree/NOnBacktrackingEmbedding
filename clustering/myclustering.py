@@ -5,6 +5,8 @@ from network_properties import *
 from collections import defaultdict
 from sklearn.cluster import *
 import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
 #This function is used for computing modularity and permanence for a community configuration
 def compute_modu_perm(g,labels):
@@ -28,6 +30,9 @@ if __name__ == '__main__':
     #Initialize the graph structure from file
     graph_structure = graph.graph(filepath)
     output_content = filepath+'\n'
+    data_columns = ['embedding method', 'dimension','clustering method','modularity','permanence'];
+
+    df = pd.DataFrame(columns = data_columns);
     for embeded_each_file in parameters.embeded:
         #For each embeded results, we run several clustering algorithms for comparison
         #Load embeded data
@@ -42,6 +47,7 @@ if __name__ == '__main__':
             kmeans = KMeans(n_clusters=parameters.cluster_number).fit(embeded_data)
             #print kmeans.labels_
             k_result = compute_modu_perm(graph_structure,kmeans.labels_)
+            df=df.append(pd.Series([embeded_each_file,max_column,'kmeans',k_result[0],k_result[1]],index=data_columns),ignore_index=True)
             output_content = output_content+ "kmeans"+str(k_result)+ '\n'
             print k_result
 
@@ -49,6 +55,7 @@ if __name__ == '__main__':
             dbscan = DBSCAN(eps = 0.1).fit(embeded_data)
             #print dbscan.labels_
             DB_result= compute_modu_perm(graph_structure,dbscan.labels_)
+            df=df.append(pd.Series([embeded_each_file,max_column,'dbscan',DB_result[0],DB_result[1]],index=data_columns),ignore_index=True)
             output_content = output_content+ 'dbscan:'+str(DB_result)+'\n'
             print DB_result
 
@@ -57,13 +64,17 @@ if __name__ == '__main__':
             #print agglomerative.labels_
             ag_result = compute_modu_perm(graph_structure,agglomerative.labels_)
             output_content = output_content + 'agglomerative:' + str(ag_result) + '\n'
+            df=df.append(pd.Series([embeded_each_file,max_column,'agglomerative',ag_result[0],ag_result[1]],index=data_columns),ignore_index=True)
             print ag_result
             #Run Spectral Clustering
             spectralclu= SpectralClustering(n_clusters=parameters.cluster_number).fit(embeded_data)
             #print spectralclu.labels_
             sp_result = compute_modu_perm(graph_structure,spectralclu.labels_)
             output_content = output_content + 'spectral:' +str(sp_result) + '\n'
+
+            df=df.append(pd.Series([embeded_each_file,max_column,'spectral',sp_result[0],sp_result[1]],index=data_columns),ignore_index=True)
             print sp_result
-    f = open(parameters.outfile,'w')
-    f.write(output_content)
-    f.close()
+    df.to_csv(parameters.outfile)
+    #f = open(parameters.outfile,'w')
+    #f.write(output_content)
+    #f.close()
