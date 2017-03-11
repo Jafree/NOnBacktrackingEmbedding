@@ -90,10 +90,11 @@ def permanence_node(g,community_map_to_node,node_map_to_community,node_v):
         
         "When the number of neighboring nodes is less than two, the clustering coefficient is zero"
         "TODO:debug"
-        if len(inner_node_set) <= 2 and len(inner_node_set)>len(external_node_set):
+        if len(inner_node_set) <= 2 and len(inner_node_set)>=e_max:
+            #len(external_node_set):
             clustering_coefficient = 1  
-        elif len(inner_node_set) <= 2:
-            clustering_coefficient = 0
+        elif len(inner_node_set) <= 1:
+            clustering_coefficient = 0 
         else:
             "Otherwise, compute the clustering coefficient"
             for node_i in inner_node_set:
