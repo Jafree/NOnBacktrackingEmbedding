@@ -44,12 +44,12 @@ if __name__ == '__main__':
             embeded_data = embeded_all_dimensions[:,0:max_column]
             
             # Run kmeans
-            #kmeans = KMeans(n_clusters=parameters.cluster_number).fit(embeded_data)
+            kmeans = KMeans(n_clusters=parameters.cluster_number).fit(embeded_data)
             #print kmeans.labels_
-            #k_result = compute_modu_perm(graph_structure,kmeans.labels_)
-            #df=df.append(pd.Series([embeded_each_file,max_column,'kmeans',k_result[0],k_result[1]],index=data_columns),ignore_index=True)
+            k_result = compute_modu_perm(graph_structure,kmeans.labels_)
+            df=df.append(pd.Series([embeded_each_file,max_column,'kmeans',k_result[0],k_result[1]],index=data_columns),ignore_index=True)
             #output_content = output_content+ "kmeans"+str(k_result)+ '\n'
-            #print 'kmeans',k_result
+            print 'kmeans',k_result
 
             #Run DBSCAN   Have to tune eps
             #dbscan = DBSCAN(eps = 0.1).fit(embeded_data)
@@ -67,13 +67,13 @@ if __name__ == '__main__':
             df=df.append(pd.Series([embeded_each_file,max_column,'agglomerative',ag_result[0],ag_result[1]],index=data_columns),ignore_index=True)
             print 'ag', ag_result
             #Run Spectral Clustering
-            spectralclu= SpectralClustering(n_clusters=parameters.cluster_number).fit(embeded_data)
+            #spectralclu= SpectralClustering(n_clusters=parameters.cluster_number).fit(embeded_data)
             #print spectralclu.labels_
-            sp_result = compute_modu_perm(graph_structure,spectralclu.labels_)
-            output_content = output_content + 'spectral:' +str(sp_result) + '\n'
+            #sp_result = compute_modu_perm(graph_structure,spectralclu.labels_)
+            #output_content = output_content + 'spectral:' +str(sp_result) + '\n'
 
-            df=df.append(pd.Series([embeded_each_file,max_column,'spectral',sp_result[0],sp_result[1]],index=data_columns),ignore_index=True)
-            print sp_result
+            #df=df.append(pd.Series([embeded_each_file,max_column,'spectral',sp_result[0],sp_result[1]],index=data_columns),ignore_index=True)
+            #print sp_result
     df.to_csv(parameters.outfile)
     #f = open(parameters.outfile,'w')
     #f.write(output_content)
