@@ -42,3 +42,12 @@ Thumbs.db
 *.swp
 .DS_Store
 *.pyc
+./.git/objects/pack/pack-ccdca83a58ee5f38d86b9a840c42933bf6ba45d6.pack
+./datasets/embedding_results/condmat_sparse_ua.txt
+./datasets/embedding_results/condmat_sparse_nb.txt
+./datasets/embedding_results/amazon_sparse_ua.txt
+./datasets/embedding_results/dblp_sparse_ua.txt
+./datasets/embedding_results/amazon_sparse_nb.txt
+./datasets/embedding_results/enronemail_sparse_ua.txt
+./datasets/embedding_results/dblp_sparse_nb.txt
+./datasets/embedding_results/enronemail_sparse_nb.txt

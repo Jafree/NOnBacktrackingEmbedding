@@ -23,8 +23,8 @@ mappedX = mappedX(:,2:dimension+1);
 save(strcat('../datasets/embedding_results/others_embedding/randomwalk_laplacian_',filename),'mappedX','-ascii');
 
 %PCA
-[mappedX, mapping] = compute_mapping(full(adjacency(G)+adjacency(G)'),'PCA',dimension);
-save(['../datasets/embedding_results/others_embedding/pca_' filename],'mappedX','-ascii') 
+%[mappedX, mapping] = compute_mapping(full(adjacency(G)+adjacency(G)'),'PCA',dimension);
+%save(['../datasets/embedding_results/others_embedding/pca_' filename],'mappedX','-ascii') 
 
 %Isomap
 [mappedX, mapping] = compute_mapping(adjacency(G)+adjacency(G)', 'Isomap',dimension);	
