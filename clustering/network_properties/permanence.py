@@ -86,7 +86,10 @@ def permanence_node(g,community_map_to_node,node_map_to_community,node_v):
         #    print "community's nodes", community_map_to_node[community]
         #     print external_node_set
         #    return 0
-        e_max = max(community_number_dict.itervalues())
+        if len(community_number_dict)==0:
+            return 0
+        else:
+            e_max = max(community_number_dict.itervalues())
         
         "When the number of neighboring nodes is less than two, the clustering coefficient is zero"
         "TODO:debug"
