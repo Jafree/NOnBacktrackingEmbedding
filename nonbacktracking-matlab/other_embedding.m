@@ -22,21 +22,16 @@ mappedX = mappedX(:,2:dimension+1);
 %[D,idx] = sort(diag(D),'descend');
 save(strcat('../datasets/embedding_results/others_embedding/randomwalk_laplacian_',filename),'mappedX','-ascii');
 
-<<<<<<< HEAD
-%PCA
-[mappedX, mapping] = compute_mapping(full(adjacency(G)+adjacency(G)'),'PCA',dimension);
-save(['../datasets/embedding_results/others_embedding/pca_' filename],'mappedX','-ascii') 
-
-=======
->>>>>>> test
 %Isomap
 [mappedX, mapping] = compute_mapping(adjacency(G)+adjacency(G)', 'Isomap',dimension);	
 save(['../datasets/embedding_results/others_embedding/isomap_' filename],'mappedX','-ascii') 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> test
+
+%PCA
+%[mappedX, mapping] = compute_mapping(full(adjacency(G)+adjacency(G)'),'PCA',dimension);
+%save(['../datasets/embedding_results/others_embedding/pca_' filename],'mappedX','-ascii') 
+
 %Deep autoencoder
 %[mappedX, mapping] = compute_mapping(adjacency(G)+adjacency(G)','Autoencoder',dimension);	
 %save(['../datasets/embedding_results/others_embedding/deepautoencoder_' filename],'mappedX','-ascii') 
@@ -44,10 +39,6 @@ save(['../datasets/embedding_results/others_embedding/isomap_' filename],'mapped
 %tSNE
 %[mappedX, mapping] = compute_mapping(full(adjacency(G)+adjacency(G)') ,'tSNE',dimension);
 %save(['../datasets/embedding_results/others_embedding/tsne_' filename],'mappedX','-ascii') 
-<<<<<<< HEAD
-
-=======
->>>>>>> test
 %tSNE
 %[mappedX, mapping] = compute_mapping(A, 'tSNE',dimension);
 %save(['../datasets/embedding_results/others_embedding/tsneA_' filename],'mappedX','-ascii') 
