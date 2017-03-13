@@ -26,6 +26,7 @@ embeded = ("../datasets/embedding_results/others_embedding/deepautoencoder_dolph
 dimensions =[1,2,3,4,5,6,7,8,9,10,11,12,13,20,30,40,50]
 cluster_number = 7
 '''
+'''
 #polblog
 inputfile = "../datasets/polblog.txt"
 outfile = "../datasets/clustering_results/polblog_community_others.csv"
@@ -33,7 +34,7 @@ embeded = ("../datasets/embedding_results/others_embedding/deepautoencoder_polbl
 
 dimensions =[1,2,3,4,5,6,7,8,9,10,11,12,13,20,30,40,50,100,150,200]
 cluster_number = 7
-
+'''
 
 
 
@@ -85,3 +86,10 @@ embeded = ("../datasets/embedding_results/hepth_sparse_nb.txt","../datasets/embe
 dimensions =[1,2,3,4,5,6,7,8,9,10,20,30,40,50,100,150,200,250,300]
 cluster_number = 700 
 '''
+#hepth
+inputfile = "../datasets/hepth.txt"
+outfile = "../datasets/clustering_results/hepth_community_others.csv"
+embeded = ("../datasets/embedding_results/hepth_sparse_nb.txt","../datasets/embedding_results/hepth_sparse_ua.txt","../datasets/embedding_results/others_embedding/isomap_hepth.txt","../datasets/embedding_results/others_embedding/laplacian_eigenmaps_hepth.txt","../datasets/embedding_results/others_embedding/pca_hepth.txt","../datasets/embedding_results/others_embedding/randomwalk_laplacian_hepth.txt")
+
+dimensions =[1,2,3,4,5,6,7,8,9,10,11,12,13,20,30,40,50,100,150,200]
+cluster_number = 700
