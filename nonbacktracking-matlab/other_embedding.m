@@ -33,7 +33,6 @@ save(['../datasets/embedding_results/others_embedding/isomap_' filename],'mapped
 %tSNE
 %[mappedX, mapping] = compute_mapping(full(adjacency(G)+adjacency(G)') ,'tSNE',dimension);
 %save(['../datasets/embedding_results/others_embedding/tsne_' filename],'mappedX','-ascii') 
-
 %tSNE
 %[mappedX, mapping] = compute_mapping(A, 'tSNE',dimension);
 %save(['../datasets/embedding_results/others_embedding/tsneA_' filename],'mappedX','-ascii') 
