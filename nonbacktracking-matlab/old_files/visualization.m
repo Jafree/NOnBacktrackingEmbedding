@@ -9,8 +9,6 @@ for i = 1:35
         color = [color;[0 0 1]];
     end
 end
-
-
 G = graph(karateTest(:,1),karateTest(:,2));
 %For plotting node names
 a=[1:numnodes(G)]';c=cellstr(num2str(a));
