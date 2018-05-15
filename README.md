@@ -3,6 +3,8 @@ Author: Fei Jiang (fei.jiang1989@gmail.com)
 ### Overview
 This algorithm is used for accurately graph embedding with theoretical guarantees.
 A graph approximation technique is utilized to speedup without losing much accuracy.
+
+If you make use of the NOBE algorithm in your work, please cite the following paper:
 ```
 @inproceedings{jiang2018nobe,
   title={On Spectral Graph Embedding: A Non-Backtracking Perspective and Graph Approximation},
