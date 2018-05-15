@@ -7,7 +7,7 @@ A graph approximation technique is utilized to speedup without losing much accur
 
 
 ### Requirements
-Our algorithm is implemented in Matlab. The matlab version of 2016_a is verified, which contains a graph package that is used in our code.
+Our algorithm is implemented in Matlab. The matlab version of 2016_a is verified, which contains a graph package that is used in our code. If you want to test graph embedding results on clustering task, Python 2.7 is required.
 
 ### Code Architecture
 nonbacktracking-matlab: this folder contains the implementation of our NOBE and NOBE-GA algorithm.
