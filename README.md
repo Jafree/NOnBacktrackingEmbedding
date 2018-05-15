@@ -47,12 +47,12 @@ choose 'normalized' to use the normalized version of embedding which shows bette
 
 For example, we can write the following code in the "main.m" and run it.
 ```
-#Load dataset into graph structure
+#Load the dataset into graph structure
 load ../datasets/karateTest.txt    
 karateTest = unique(sort(karateTest,2),'rows');
 G = graph(karateTest(:,1),karateTest(:,2),'OmitSelfLoops');
 
-#Graph embedding and get embedding a N by 30 matrix U
+#Graph embedding and get all embeddings for nodes as a N by 30 matrix U
 [U,V] =graph_embedding(G,'nb',30,'normalized');
 save -ascii ../datasets/embedding_results/karate_sparse_nb.txt U
 ```
