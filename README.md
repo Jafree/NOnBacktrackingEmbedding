@@ -2,6 +2,7 @@
 Author: Fei Jiang (fei.jiang1989@gmail.com)
 ### Overview
 This algorithm is used for accurately graph embedding with theoretical guarantees.
+
 A graph approximation technique is utilized to speedup without losing much accuracy.
 
 
@@ -10,7 +11,9 @@ Our algorithm is implemented in Matlab. The matlab version of 2016_a is verified
 
 ### Code Architecture
 nonbacktracking-matlab: this folder contains the implementation of our NOBE and NOBE-GA algorithm.
+
   main.m: you should do graph embedding in this file and run it in matlab.
+  
 clustering: this folder contains the implementation used for clustering task including two metrics, modularity and permanence.
 
 ### Dataset
@@ -28,7 +31,9 @@ The format of the input undirected unweighted graph should be an edge list and n
 8	12
 ```
 ### Run the code
-In main file "maim.m", to get #d dimension embedding for each node in graph G,use the following function should be executed: graph_embedding(G,'nb'or'ua',#d,'normalized'or'unnormalized').
+In main file "maim.m", to get #d dimension embedding for each node in graph G,use the following function should be executed: 
+
+graph_embedding(G, 'nb'or'ua', #d, 'normalized'or'unnormalized').
 
 Parameters:
 
@@ -40,7 +45,7 @@ G is our graph.
 
 choose 'normalized' to use the normalized version of embedding which shows better performance that unnormalized for graph embedding
 
-For example,
+For example, we can write the following code in the "main.m" and run it.
 //Load dataset into graph structure
 load ../datasets/karateTest.txt    
 karateTest = unique(sort(karateTest,2),'rows');
@@ -49,7 +54,7 @@ G = graph(karateTest(:,1),karateTest(:,2),'OmitSelfLoops');
 [U,V] =graph_embedding(G,'nb',30,'normalized');
 save -ascii ../datasets/embedding_results/karate_sparse_nb.txt U
 
-##Reference
+## Reference
 If you make use of the NOBE algorithm in your work, please cite the following paper:
 ```
 @inproceedings{jiang2018nobe,
