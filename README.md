@@ -57,7 +57,7 @@ G = graph(karateTest(:,1),karateTest(:,2),'OmitSelfLoops');
 save -ascii ../datasets/embedding_results/karate_sparse_nb.txt U
 ```
 
-## Cite
+## Citation
 If you make use of the NOBE algorithm in your work, please cite the following paper:
 ```
 @inproceedings{jiang2018nobe,
